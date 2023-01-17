@@ -5,8 +5,8 @@ class ProductManagementTool:
     option=int(input(options))
     productTable=['productId','productName','productPrice']
     def __init__(self):
-        # mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-        # cursor = mydb.cursor()
+         self.mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
+         self.cursor = self.mydb.cursor()
         # cursor.execute("SELECT * FROM information_schema.tables WHERE table_name = 'productInfo'")
         # print(type(cursor.fetchone()))
         # pr="productinfo"
@@ -16,41 +16,31 @@ class ProductManagementTool:
         #     cursor.close()
         # else:
             # 
-        pass
+        
     def insertProductInfo(self,productTable):
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-         mycursor= mydb.cursor()
-         mycursor.execute(f"insert into productInfo values({productTable[0]},'{productTable[1]}' ,{productTable[2]})")
-         mydb.commit()
-         mydb.close()
+         self.cursor.execute(f"insert into productInfo values({productTable[0]},'{productTable[1]}' ,{productTable[2]})")
+         self.mydb.commit()
+         self.mydb.close()
          print("Product Added Successfully..")
 
     def updateProduct(self,productTable):
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-         mycursor= mydb.cursor()
-         mycursor.execute(f"update productInfo set productPrice={productTable[1]} where productId={productTable[0]}")
-         mydb.commit()
-         mydb.close()
+         self.cursor.execute(f"update productInfo set productPrice={productTable[1]} where productId={productTable[0]}")
+         self.mydb.commit()
+         self.mydb.close()
          print("Product Updated Successfully..")
     def deleteProduct(self,productTable):
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-         mycursor= mydb.cursor()
-         mycursor.execute(f"delete from productInfo where productId={productTable[0]}")
-         mydb.commit()
-         mydb.close()
+         self.cursor.execute(f"delete from productInfo where productId={productTable[0]}")
+         self.mydb.commit()
+         self.mydb.close()
          print("Product Deleted Successfully..")
     def getProduct(self,productTable):
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-         mycursor= mydb.cursor()
-         mycursor.execute(f"select * from productInfo where productId={productTable[0]}")
-         print( mycursor.fetchone())
-         mydb.close()
+         self.cursor.execute(f"select * from productInfo where productId={productTable[0]}")
+         print( self.cursor.fetchone())
+         self.mydb.close()
     def getAllProduct(self):
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="rps@123",database="kpmg")
-         mycursor= mydb.cursor()
-         mycursor.execute(f"select * from productInfo")
-         print(mycursor.fetchall())
-         mydb.close()
+          self.cursor.execute(f"select * from productInfo")
+          print(self.cursor.fetchall())
+          self.mydb.close()
     
 product=ProductManagementTool()
 if product.option == 1:
